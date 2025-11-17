@@ -17,8 +17,11 @@ size_t WordCount::hash(std::string word) const {
 }
 
 int WordCount::getTotalWords() const {
+	for (const auto& pair : table) {
+		wordOccurence += pair.second;
+	}
 	// STUB.
-	return -1;
+	return wordOccurence;
 }
 
 int WordCount::getNumUniqueWords() const {

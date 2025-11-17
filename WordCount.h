@@ -73,7 +73,7 @@ private:
 
   std::vector<std::pair<std::string, int> > table[CAPACITY];
   // hash table array of vectors. Each index in the array will contain
-  // a vector. Each element in the vector contains a <string, int>
+  // a vector. Each element in the vector contains a <string, int> 
   // pair where the string value represents a unique word and the int
   // value represents the number of occurences for that word.
 
