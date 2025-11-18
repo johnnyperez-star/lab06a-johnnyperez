@@ -35,18 +35,70 @@ int WordCount::getNumUniqueWords() const {
 }
 
 int WordCount::getWordCount(std::string word) const {
+	std::string validWord = makeValidWord(word);
+	if (validWord == ""){
+		return 0;
+	}
 
-	return -1;
+	size_t index = hash(validWord);
+
+	for (const auto& pair : table[index]){
+		if (pair.first == validWord){
+			return pair.second;
+		}
+	}
+
+	return 0;
 }
 	
 int WordCount::incrWordCount(std::string word) {
-	// STUB
-	return -1;
+	std::string validWord = makeValidWord(word);
+	if (validWord == ""){
+		return 0;
+	}
+
+	size_t index = hash(validWord);
+
+	for (auto& pair : table[index]){
+		if(pair.first == validWord){
+			pair.second += 1;
+			return pair.second;			
+		}
+	}
+
+	table[index].push_back({validWord, 1});
+
 }
 
 int WordCount::decrWordCount(std::string word) {
-	// STUB
-	return -2;
+	std::string validWord = makeValidWord(word);
+	if(validWord == ""){
+		return -1;
+	}
+
+	size_t index = hash(validWord);
+	auto& vec = table[index];
+
+	for(auto& pair : table[index]){
+		if(pair.first == validWord){
+			if(pair.second > 1){
+				pair.second += -1;
+				return pair.second;
+			}
+			if(pair.second == 1){
+				for(auto it = vec.begin(); it != vec.end(); ){
+					if(it->first == validWord){
+						it = vec.erase(it);
+						return 0;
+					}
+					else{
+						++it;
+					}
+				}
+			}
+		}
+	}
+	return -1;
 }
 
 bool WordCount::isWordChar(char c) {
