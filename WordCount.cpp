@@ -17,20 +17,25 @@ size_t WordCount::hash(std::string word) const {
 }
 
 int WordCount::getTotalWords() const {
-	for (const auto& pair : table) {
-		wordOccurence += pair.second;
+	int wordOccurence = 0;
+	for (const auto& vec : table){
+		for (const auto& pair : vec){
+			wordOccurence += pair.second;
+		}
 	}
-	// STUB.
 	return wordOccurence;
 }
 
 int WordCount::getNumUniqueWords() const {
-	// STUB
-	return -1;
+	int uniqueWords = 0;
+	for (size_t i = 0; i < CAPACITY; i++){
+		uniqueWords += table[i].size();
+	}
+	return uniqueWords;
 }
 
 int WordCount::getWordCount(std::string word) const {
-	// STUB
+
 	return -1;
 }
 	
@@ -45,11 +50,42 @@ int WordCount::decrWordCount(std::string word) {
 }
 
 bool WordCount::isWordChar(char c) {
-	// STUB
-	return false;
+	if (c <= 'z' && c >= 'a' || c <= 'Z' && c >= 'A') { return true;}
+	else { return false; }
 }
 
 std::string WordCount::makeValidWord(std::string word) {
-	// STUB
-	return "";
+	int firstCharIndx = -1;
+	int lastCharIndx = -1;
+	std::string subString = "";
+	std::string validWord = "";
+
+	for (size_t i = 0; i < word.length(); i++){
+		if (isWordChar(word[i]) == true){
+			firstCharIndx = i;
+			break;
+		}
+	}
+
+	if (firstCharIndx != -1){
+		for(int i = word.length() - 1; i >= 0; i--){
+			if(isWordChar(word[i]) == true){
+				lastCharIndx = i;
+				break;
+			}
+		}
+	}
+
+	if (firstCharIndx == -1){
+		return "";
+	}
+
+	subString = word.substr(firstCharIndx, lastCharIndx - firstCharIndx + 1);
+
+	for (char ch : subString){
+		if (isWordChar(ch) == true || ch == '\'' || ch == '-'){
+			validWord += std::tolower(ch);
+		}
+	}
+	return validWord;
 }

@@ -6,7 +6,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <utility>
+#include <utility> 
+#include <cctype>
 
 class WordCount {
 public:
