@@ -67,7 +67,7 @@ int WordCount::incrWordCount(std::string word) {
 	}
 
 	table[index].push_back({validWord, 1});
-
+	return 1;
 }
 
 int WordCount::decrWordCount(std::string word) {
@@ -102,7 +102,7 @@ int WordCount::decrWordCount(std::string word) {
 }
 
 bool WordCount::isWordChar(char c) {
-	if (c <= 'z' && c >= 'a' || c <= 'Z' && c >= 'A') { return true;}
+	if (((c <= 'z') && (c >= 'a')) || ((c <= 'Z') && (c >= 'A'))) { return true;}
 	else { return false; }
 }
 
@@ -135,7 +135,7 @@ std::string WordCount::makeValidWord(std::string word) {
 	subString = word.substr(firstCharIndx, lastCharIndx - firstCharIndx + 1);
 
 	for (char ch : subString){
-		if (isWordChar(ch) == true || ch == '\'' || ch == '-'){
+		if ((isWordChar(ch) == true) || (ch == '\'') || (ch == '-')){
 			validWord += std::tolower(ch);
 		}
 	}
